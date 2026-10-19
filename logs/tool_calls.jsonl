@@ -1,0 +1,27 @@
+{"ok": false, "tool_name": "calculate", "error_type": "invalid_arguments", "message": "calculate() missing 1 required positional argument: 'y'", "duration_ms": 7.98, "timestamp": "2026-10-19T08:48:45.576740Z"}
+{"ok": true, "data": {"operation": "add", "x": 12, "y": 8, "result": 20}, "duration_ms": 0.71, "timestamp": "2026-10-19T08:49:05.758812Z"}
+{"ok": true, "data": {"operation": "add", "x": 12, "y": 8, "result": 20}, "duration_ms": 1.41, "timestamp": "2026-10-19T08:49:32.946042Z"}
+{"ok": false, "error_type": "unknown_tool", "message": "Tool 'not_exists' is not implemented.", "duration_ms": 0.0, "timestamp": "2026-10-19T08:49:32.946186Z"}
+{"ok": false, "error_type": "invalid_json", "message": "Arguments must be valid JSON.", "duration_ms": 0.01, "timestamp": "2026-10-19T08:49:32.946229Z"}
+{"timestamp": "2026-10-19T08:58:16.074549Z", "tool_name": "calculate", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 7.75}
+{"timestamp": "2026-10-19T08:58:52.967117Z", "tool_name": "calculate", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 0.64}
+{"timestamp": "2026-10-19T10:23:35.289362Z", "tool_name": "calculate", "ok": true, "error_type": null, "attempts": null, "duration_ms": 0.39}
+{"timestamp": "2026-10-19T10:25:51.801036Z", "tool_name": "read_file", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 4.84}
+{"timestamp": "2026-10-19T10:25:53.203074Z", "tool_name": "list_files", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 0.56}
+{"timestamp": "2026-10-19T10:25:56.647855Z", "tool_name": "search_files", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 5.36}
+{"timestamp": "2026-10-19T10:26:41.340995Z", "tool_name": "read_file", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 4.38}
+{"timestamp": "2026-10-19T10:26:42.592775Z", "tool_name": "list_files", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 0.74}
+{"timestamp": "2026-10-19T10:26:45.828374Z", "tool_name": "search_files", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 5.06}
+{"timestamp": "2026-10-19T10:26:50.845038Z", "tool_name": "read_file", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 0.87}
+{"timestamp": "2026-10-19T10:29:03.797760Z", "tool_name": "read_file", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 1.19}
+{"timestamp": "2026-10-19T10:29:05.538184Z", "tool_name": "list_files", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 0.7}
+{"timestamp": "2026-10-19T10:29:07.895555Z", "tool_name": "search_files", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 5.6}
+{"timestamp": "2026-10-19T10:29:43.764525Z", "tool_name": "save_note", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 1.04}
+{"timestamp": "2026-10-19T10:29:48.991227Z", "tool_name": "save_note", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 0.86}
+{"timestamp": "2026-10-19T10:29:51.711967Z", "tool_name": "list_files", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 0.93}
+{"timestamp": "2026-10-19T10:29:51.715404Z", "tool_name": "search_files", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 3.1}
+{"timestamp": "2026-10-19T10:29:53.893807Z", "tool_name": "calculate", "ok": false, "error_type": "invalid_arguments", "attempts": null, "duration_ms": 0.55}
+{"timestamp": "2026-10-19T10:32:09.778996Z", "tool_name": "save_note", "ok": true, "error_type": null, "attempts": 1, "duration_ms": 3.17}
+{"timestamp": "2026-10-19T10:32:43.561489Z", "tool_name": "read_file", "ok": true, "error_type": null, "attempts": 1, "duration_ms": 1.22}
+{"timestamp": "2026-10-19T10:34:47.221633Z", "tool_name": "read_file", "ok": true, "error_type": null, "attempts": 1, "duration_ms": 4.82}
+{"timestamp": "2026-10-19T10:34:57.479165Z", "tool_name": "list_files", "ok": true, "error_type": null, "attempts": 1, "duration_ms": 0.84}

@@ -90,9 +90,16 @@ def save_note(filename: str, content: str) -> dict:
     """
     path = get_safe_path(filename)
     if not content.strip():
-        raise ValueError("Content must not be None.")   
+        raise ValueError("Content must not be None.")  
+    if path.exists():
+        old_content = path.read_text(encoding="utf-8")
+        if old_content == content:
+            return {"filename": path.name, "status": "unchanged", "characters_written": len(content)}
+        status = "updated"
+    else:
+        status = "created"
     path.write_text(content, encoding="utf-8")
-    return {"filename": path.name, "characters_written": len(content)}
+    return {"filename": path.name, "status": status, "characters_written": len(content)}
 
 
 
