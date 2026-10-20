@@ -1,0 +1,1 @@
+finished day7 mcp client test.
