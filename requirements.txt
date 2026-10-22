@@ -50,3 +50,8 @@ watchfiles==1.1.1
 websocket-client==1.9.0
 websockets==15.0.1
 yarl==1.22.0
+
+# Days 7-9: MCP、LangGraph 与 SQLite checkpoint
+mcp==2.3.0
+langgraph==1.2.16
+langgraph-checkpoint-sqlite==3.1.2
