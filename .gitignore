@@ -5,3 +5,5 @@ __pycache__/
 .venv311/
 
 data/checkpoints.sqlite
+
+data/memory.sqlite
