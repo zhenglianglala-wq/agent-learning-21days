@@ -165,34 +165,42 @@ def answer_with_rag(question: str, results: list[dict]) -> str:
 
     return response.choices[0].message.content or "未收到模型回答。"
 
+def main():
+    documents = load_documents()
+    chunks = split_documents(documents)
+
+    print(f"文档数量：{len(documents)}")
+    print(f"切分后 chunk 数量：{len(chunks)}")
+
+    collection = get_collection()
+
+    if collection.count() == 0:
+        store_chunks(collection, chunks)
+
+    print(f"当前知识库 chunk 数量：{collection.count()}")
+
+    question = input("请输入查询问题：").strip()
+
+    if not question:
+        print("问题不能为空。")
+        return
+
+    results = search_knowledge(collection, question)
+
+    if not results:
+        print("资料中未找到依据。")
+        return
+
+    for item in results:
+        print(f"\n来源：{item['filename']}#chunk-{item['chunk_id']}")
+        print(f"距离：{item['distance']:.4f}")
+        print(item["text"])
+
+    answer = answer_with_rag(question, results)
+
+    print("\n模型回答：")
+    print(answer)
 
 
-documents = load_documents()
-chunks = split_documents(documents)
-
-print(f"文档数量：{len(documents)}")
-print(f"切分后 chunk 数量：{len(chunks)}")
-
-
-collection = get_collection()
-
-if collection.count() == 0:
-    store_chunks(collection, chunks)
-
-print(f"当前知识库 chunk 数量：{collection.count()}")
-
-question = input("请输入查询问题：").strip()
-results = search_knowledge(collection, question)
-if not question:
-    print("问题不能为空。")
-    raise SystemExit
-
-for item in results:
-    print(f"\n来源：{item['filename']}#chunk-{item['chunk_id']}")
-    print(f"距离：{item['distance']:.4f}")
-    print(item["text"])
-
-answer = answer_with_rag(question, results)
-
-print("\n模型回答：")
-print(answer)
+if __name__ == "__main__":
+    main()
