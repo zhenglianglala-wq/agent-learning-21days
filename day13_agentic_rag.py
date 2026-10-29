@@ -22,6 +22,10 @@ def create_agent_state(question: str) -> dict:
         "route": None,
         "answer": None,
         "trace": [],
+        "planning_usage": None,
+        "rewrite_usage": None,
+        "answer_usage": None,
+        "usage_records": [],
     }
 
 def decide_initial_action(question: str) -> str:
@@ -42,10 +46,16 @@ def decide_initial_action(question: str) -> str:
     try:
         decision = json.loads(text)
     except json.JSONDecodeError:
-        return {"action": "search", "reason": "模型输出不是有效 JSON，默认检索。"}
+        decision = {"action": "search", "reason": "模型输出不是有效 JSON，默认检索。"}
 
-    if decision.get("action") not in {"direct_answer", "search"}:
-        return {"action": "search", "reason": "未知动作，默认检索。"}
+    if not isinstance(decision, dict) or decision.get("action") not in {"direct_answer", "search"}:
+        decision = {"action": "search", "reason": "未知动作，默认检索。"}
+    usage = response.usage
+    decision["usage"] = {
+        "prompt_tokens": usage.prompt_tokens,
+        "completion_tokens": usage.completion_tokens,
+        "total_tokens": usage.total_tokens,
+    } if usage else None
     return decision
 
 def answer_directly(question: str) -> str:
@@ -62,16 +72,26 @@ def answer_directly(question: str) -> str:
             },
         ],
     )
-    return response.choices[0].message.content or "未收到模型回答。"
+    usage = response.usage
+    usage_data = {
+        "prompt_tokens": usage.prompt_tokens,
+        "completion_tokens": usage.completion_tokens,
+        "total_tokens": usage.total_tokens,
+    } if usage else None
+
+    return response.choices[0].message.content or "未收到模型回答。", usage_data
 
 def run_agent(question: str) -> dict:
     state = create_agent_state(question)
     collection = get_collection()
     decision = decide_initial_action(question)
+    state["planning_usage"] = decision.get("usage")
+    state["usage_records"].append({"stage": "planning", "model": MODEL, **(state["planning_usage"] or {"prompt_tokens": None, "completion_tokens": None, "total_tokens": None})})
 
     if decision["action"] == "direct_answer":
         state["route"] = "direct_answer"
-        state["answer"] = answer_directly(question)
+        state["answer"], state["answer_usage"] = answer_directly(question)
+        state["usage_records"].append({"stage": "direct_answer", "model": MODEL, **(state["answer_usage"] or {"prompt_tokens": None, "completion_tokens": None, "total_tokens": None})})
         state["trace"].append("direct_answer")
         return state
 
@@ -79,11 +99,12 @@ def run_agent(question: str) -> dict:
 
         state["route"] = "search"
         state["trace"].append(f"search:{state['search_query']}")
-        state["results"] = search_knowledge(collection, state["search_query"])
+        state["results"] = search_knowledge(collection, state["search_query"], usage_records=state["usage_records"])
         state["search_attempts"] += 1
         if results_are_sufficient(state["results"]):
             state["route"] = "search_with_results"
-            state["answer"] = answer_with_rag(state["question"], state["results"])
+            state["answer"] = answer_with_rag(state["question"], state["results"], usage_records=state["usage_records"])
+            state["answer_usage"] = {key: state["usage_records"][-1][key] for key in ("prompt_tokens", "completion_tokens", "total_tokens")}
             return state
         if state["search_attempts"] >= MAX_SEARCH_ATTEMPTS:
             state["route"] = "no_evidence"
@@ -92,7 +113,8 @@ def run_agent(question: str) -> dict:
         state["route"] = "rewrite_query"
         # 改写查询前
         state["trace"].append("rewrite_query")
-        state["search_query"] = rewrite_query(state["question"], state["search_query"])
+        state["search_query"], state["rewrite_usage"] = rewrite_query(state["question"], state["search_query"])
+        state["usage_records"].append({"stage": "rewrite", "model": MODEL, **(state["rewrite_usage"] or {"prompt_tokens": None, "completion_tokens": None, "total_tokens": None})})
         state["trace"].append(f"new_query:{state['search_query']}")
     return state
 
@@ -108,7 +130,11 @@ def rewrite_query(
     prompt = f"""
     你是知识库检索查询改写器。
 
-    将用户问题改写成更适合检索本地 Agent 学习资料的关键词。
+    将用户问题改写成适合检索的关键词，遵守以下规则：
+    1. 保留用户问题中的核心对象、主题和限制条件。
+    2. 不要添加用户没有提到的主题，例如 Agent、工具或 API。
+    3. 不要回答问题，也不要改变用户原本的意图。
+    4. 如果无法改写，就原样返回用户问题。
     不要回答问题，只输出 JSON：
 
     {{"query": "改写后的查询词"}}
@@ -130,7 +156,15 @@ def rewrite_query(
     except json.JSONDecodeError:
         new_query = ""
 
-    return new_query or previous_query
+    usage = response.usage
+    usage_data = {
+        "prompt_tokens": usage.prompt_tokens,
+        "completion_tokens": usage.completion_tokens,
+        "total_tokens": usage.total_tokens,
+    } if usage else None
+
+    return new_query or previous_query, usage_data
+
 
 def results_are_sufficient(results: list[dict]) -> bool:
     if not results:

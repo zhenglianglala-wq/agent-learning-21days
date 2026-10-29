@@ -1,0 +1,322 @@
+[
+  {
+    "id": "answerable-01",
+    "category": "answerable",
+    "question": "RAG 为什么需要切分文档？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["chunk", "检索"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-02",
+    "category": "answerable",
+    "question": "Embedding 在 RAG 中有什么作用？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["向量", "相似"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-03",
+    "category": "answerable",
+    "question": "Chroma 保存了哪些数据？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["向量", "metadata"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-04",
+    "category": "answerable",
+    "question": "什么是 Function Calling？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["工具", "参数"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-05",
+    "category": "answerable",
+    "question": "MCP 客户端和服务端如何协作？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["客户端", "服务端"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-06",
+    "category": "answerable",
+    "question": "LangGraph 的 State、Node 和 Edge 分别是什么？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["State", "Node"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-07",
+    "category": "answerable",
+    "question": "thread_id 在持久化对话中有什么作用？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["线程", "会话"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-08",
+    "category": "answerable",
+    "question": "为什么工具调用需要超时和异常处理？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["超时", "异常"],
+    "expect_sources": true
+  },
+  {
+    "id": "no-evidence-01",
+    "category": "no_evidence",
+    "question": "红烧肉怎么做？",
+    "expected_route": "no_evidence",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "no-evidence-02",
+    "category": "no_evidence",
+    "question": "今天北京的天气怎么样？",
+    "expected_route": "no_evidence",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "no-evidence-03",
+    "category": "no_evidence",
+    "question": "推荐一部最新的科幻电影。",
+    "expected_route": "no_evidence",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "no-evidence-04",
+    "category": "no_evidence",
+    "question": "帮我制定一份马拉松训练计划。",
+    "expected_route": "no_evidence",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "no-evidence-05",
+    "category": "no_evidence",
+    "question": "如何修理漏水的水龙头？",
+    "expected_route": "no_evidence",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "direct-01",
+    "category": "direct_answer",
+    "question": "你好",
+    "expected_route": "direct_answer",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "direct-02",
+    "category": "direct_answer",
+    "question": "早上好",
+    "expected_route": "direct_answer",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "direct-03",
+    "category": "direct_answer",
+    "question": "你能做什么？",
+    "expected_route": "direct_answer",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "direct-04",
+    "category": "direct_answer",
+    "question": "谢谢，再见。",
+    "expected_route": "direct_answer",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "boundary-01",
+    "category": "boundary",
+    "question": "怎样让检索结果更准确？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["检索", "查询"],
+    "expect_sources": true
+  },
+  {
+    "id": "boundary-02",
+    "category": "boundary",
+    "question": "知识库没有答案时应该怎么办？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["资料中未找到依据"],
+    "expect_sources": true
+  },
+  {
+    "id": "boundary-03",
+    "category": "boundary",
+    "question": "Agent 是怎么记住之前对话的？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["记忆", "SQLite"],
+    "expect_sources": true
+  },
+  {
+    "id": "multi-step-01",
+    "category": "multi_step",
+    "question": "RAG 如何从文档切分走到检索，再生成回答？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["切分", "检索", "回答"],
+    "expect_sources": true
+  },
+  {
+    "id": "multi-step-02",
+    "category": "multi_step",
+    "question": "Function Calling 中，模型提出工具调用后，程序怎样执行并返回最终回答？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["工具", "参数", "结果"],
+    "expect_sources": true
+  },
+  {
+    "id": "multi-step-03",
+    "category": "multi_step",
+    "question": "LangGraph 如何使用 checkpoint 暂停任务，并在用户确认后恢复？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["暂停", "恢复"],
+    "expect_sources": true
+  },
+  {
+    "id": "multi-step-04",
+    "category": "multi_step",
+    "question": "长对话如何结合历史摘要和最近消息构建发送给模型的上下文？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["摘要", "最近", "上下文"],
+    "expect_sources": true
+  },
+  {
+    "id": "multi-step-05",
+    "category": "multi_step",
+    "question": "Agentic RAG 在检索结果不足时，如何改写查询并决定何时停止？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["检索", "改写", "重试"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-09",
+    "category": "answerable",
+    "question": "asyncio.gather 有什么作用？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["并发"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-10",
+    "category": "answerable",
+    "question": "FastAPI 中 Pydantic 的作用是什么？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["数据", "验证"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-11",
+    "category": "answerable",
+    "question": "SQLite 中联合主键有什么作用？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["主键"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-12",
+    "category": "answerable",
+    "question": "为什么 API Key 不应提交到 Git？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["密钥"],
+    "expect_sources": true
+  },
+  {
+    "id": "answerable-13",
+    "category": "answerable",
+    "question": "增量摘要如何处理已经总结过的旧消息？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["摘要", "消息"],
+    "expect_sources": true
+  },
+  {
+    "id": "no-evidence-06",
+    "category": "no_evidence",
+    "question": "如何养护蝴蝶兰？",
+    "expected_route": "no_evidence",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "no-evidence-07",
+    "category": "no_evidence",
+    "question": "法国大革命发生的主要原因是什么？",
+    "expected_route": "no_evidence",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "no-evidence-08",
+    "category": "no_evidence",
+    "question": "自行车轮胎漏气怎么修补？",
+    "expected_route": "no_evidence",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "direct-05",
+    "category": "direct_answer",
+    "question": "下午好！",
+    "expected_route": "direct_answer",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "direct-06",
+    "category": "direct_answer",
+    "question": "谢谢你的帮助。",
+    "expected_route": "direct_answer",
+    "expected_keywords": [],
+    "expect_sources": false
+  },
+  {
+    "id": "boundary-04",
+    "category": "boundary",
+    "question": "向量距离小代表什么？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["相似"],
+    "expect_sources": true
+  },
+  {
+    "id": "boundary-05",
+    "category": "boundary",
+    "question": "检索到的资料一定能回答问题吗？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["资料"],
+    "expect_sources": true
+  },
+  {
+    "id": "multi-step-06",
+    "category": "multi_step",
+    "question": "MCP 客户端怎样连接服务端、发现工具并调用工具？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["客户端", "工具"],
+    "expect_sources": true
+  },
+  {
+    "id": "multi-step-07",
+    "category": "multi_step",
+    "question": "用户偏好如何存入 SQLite，并在之后的对话中使用？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["用户", "偏好"],
+    "expect_sources": true
+  },
+  {
+    "id": "multi-step-08",
+    "category": "multi_step",
+    "question": "RAG 如何将查询转换为向量，再从向量库中找到相关片段？",
+    "expected_route": "search_with_results",
+    "expected_keywords": ["向量", "检索"],
+    "expect_sources": true
+  }
+]

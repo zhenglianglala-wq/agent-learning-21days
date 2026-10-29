@@ -25,6 +25,17 @@ client = OpenAI(
 MODEL = "qwen3.8-flash"
 
 
+def record_usage(usage_records: list | None, stage: str, model: str, usage) -> None:
+    if usage_records is None:
+        return
+    usage_records.append({
+        "stage": stage,
+        "model": model,
+        "prompt_tokens": getattr(usage, "prompt_tokens", None),
+        "completion_tokens": getattr(usage, "completion_tokens", None),
+        "total_tokens": getattr(usage, "total_tokens", None),
+    })
+
 
 def load_documents() ->list[dict]:
     """
@@ -71,7 +82,7 @@ def split_documents(documents: list[dict]) -> list[dict]:
 
 
 
-def create_embedding(text: list[str]) -> list[list[float]]:
+def create_embedding(text: list[str], usage_records: list | None = None) -> list[list[float]]:
     """
     Create an embedding for the given text using the OpenAI API.
     Returns a list of floats representing the embedding vector.
@@ -80,6 +91,7 @@ def create_embedding(text: list[str]) -> list[list[float]]:
         model="text-embedding-v4",
         input=text
     )
+    record_usage(usage_records, "embedding", "text-embedding-v4", response.usage)
     return [item.embedding for item in response.data]
 
 
@@ -108,12 +120,12 @@ def store_chunks(collection, chunks: list[dict]):
            metadatas=metadata
        )
 
-def search_knowledge(collection, query: str, top_k: int = 3) -> list[dict]:
+def search_knowledge(collection, query: str, top_k: int = 3, usage_records: list | None = None) -> list[dict]:
     """
     Search the knowledge base for relevant chunks based on the query.
     Returns a list of dictionaries with 'filename', 'chunk_id', and 'content'.
     """
-    query_embedding = create_embedding([query])[0]
+    query_embedding = create_embedding([query], usage_records)[0]
     response = collection.query(
         query_embeddings=[query_embedding],
         n_results=top_k,
@@ -136,7 +148,7 @@ def search_knowledge(collection, query: str, top_k: int = 3) -> list[dict]:
     return results
     
 
-def answer_with_rag(question: str, results: list[dict]) -> str:
+def answer_with_rag(question: str, results: list[dict], usage_records: list | None = None) -> str:
     context = "\n\n".join(
         (
             f"[来源：{item['filename']}#chunk-{item['chunk_id']}]\n"
@@ -163,6 +175,7 @@ def answer_with_rag(question: str, results: list[dict]) -> str:
         ],
     )
 
+    record_usage(usage_records, "rag_answer", MODEL, response.usage)
     return response.choices[0].message.content or "未收到模型回答。"
 
 def main():
