@@ -1,0 +1,24 @@
+{
+  "question": "rag是什么",
+  "single": {
+    "answer": "RAG 是 **Retrieval Augmented Generation**，即 **检索增强生成**。\n\n它的流程是：先从知识库中检索与用户问题相关的资料片段，再让大模型基于这些检索到的片段来生成回答。这样做的目的是让回答更有依据、可追溯，并减少模型脱离资料自行编造内容。\n\n来源：15_rag_overview.md#chunk-0",
+    "duration_seconds": 4.94,
+    "total_tokens": 761
+  },
+  "multi": {
+    "answer": "RAG 可以按以下步骤理解：\n\n1. **基本定义**  \n   RAG 是 **Retrieval Augmented Generation**，即“检索增强生成”[15_rag_overview.md#chunk-0]。\n\n2. **核心工作流程**  \n   RAG 的做法是：先从知识库中检索与用户问题相关的资料片段，再让模型基于这些检索到的片段来回答问题[15_rag_overview.md#chunk-0]。\n\n3. **主要目的**  \n   RAG 的目标是让模型回答有依据、可追溯，并减少模型脱离资料进行编造的情况[15_rag_overview.md#chunk-0]。\n\n4. **提示词设计要点**  \n   在 RAG 场景下，提示词通常应分开角色、回答规则、资料片段和用户问题；资料片段需要标识来源；模型应基于片段组织答案，并只列出真正使用过的来源，不能伪造引用[23_prompt_design.md#chunk-0]。\n\n5. **基础评估要点**  \n   RAG 的测试至少应覆盖：资料中能回答的问题、资料中没有答案的问题、需要多个片段才能回答的问题；同时记录问题、检索到的来源、最终回答、是否回答正确、引用是否正确和耗时[22_rag_evaluation.md#chunk-0]。\n\n6. **资料不足说明**  \n   当前参考资料可以说明 RAG 的定义、基本流程、提示词设计和基础评估要求，但没有提供更具体的实现架构、模型选型、检索算法细节或工程落地方案，这些内容无法据此确定[15_rag_overview.md#chunk-0][23_prompt_design.md#chunk-0][22_rag_evaluation.md#chunk-0]。",
+    "review": {
+      "approved": true,
+      "feedback": "报告回答了“RAG是什么”的问题，主要结论均有参考资料支持，引用来源与给定资料一致；同时补充了提示词设计、基础评估和资料不足说明，未出现编造内容。若严格聚焦问题，提示词与评估部分可进一步压缩为辅助信息，但不影响整体审阅通过。"
+    },
+    "revision_count": 0,
+    "trace": [
+      "researcher",
+      "writer",
+      "reviewer",
+      "supervisor"
+    ],
+    "duration_seconds": 16.54,
+    "total_tokens": 2164
+  }
+}
